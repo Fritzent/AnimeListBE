@@ -17,7 +17,8 @@ module.exports = (app) => {
     app.post(
         "/api/auth/signup",
         [
-          verifySignUp.checkDuplicateUsernameOrEmail
+          verifySignUp.checkDuplicateUsernameOrEmail,
+          verifySignUp.checkPasswordLength
         ],
         controller.signup
     );

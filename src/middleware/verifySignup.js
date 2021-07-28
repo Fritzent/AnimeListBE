@@ -35,8 +35,19 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
   });
 };
 
+checkPasswordLength = (req, res, next) => {
+  if(req.body.password.length < 8 ) {
+    res.status(400).send({
+      message: "Password length must 8 or higher"
+    });
+    return;
+  }
+  next();
+}
+
 const verifySignUp = {
-  checkDuplicateUsernameOrEmail
+  checkDuplicateUsernameOrEmail,
+  checkPasswordLength
 };
 
 module.exports = verifySignUp;
