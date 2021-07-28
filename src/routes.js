@@ -1,5 +1,7 @@
 const controller = require("./controller/auth.controller");
+const { verifySignUp } = require("./middleware");
 const { sendNotFound } = require('./helpers/response')
+
 
 module.exports = (app) => {
     app.get('/', (req, res) => {
@@ -12,6 +14,14 @@ module.exports = (app) => {
             message: 'Network Connected!'
         })
     )
+    app.post(
+        "/api/auth/signup",
+        [
+          verifySignUp.checkDuplicateUsernameOrEmail
+        ],
+        controller.signup
+    );
+
     app.post('/api/auth/login', controller.signin)
 
     app.use((req, res) => sendNotFound(res))
